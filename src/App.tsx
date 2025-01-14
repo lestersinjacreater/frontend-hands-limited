@@ -8,22 +8,23 @@ import { WhyChooseUs } from './components/WhyChooseUs';
 import { AboutUs } from './components/AboutUs';
 import { ContactForm } from './components/ContactForm';
 import { Footer } from './components/Footer';
+import HeroSection from './components/Herosection';
 
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main>
-        <Hero />
+        <HeroSection />
         <Products title="PRODUCTS" />
-        <Services title="SERVICES" />
+        {/* <Services title="SERVICES" />
         <Updates title="Updates" />
         <Testimonials title="What Our Clients Say About Us" />
         <WhyChooseUs title="Why Choose Us?" />
         <AboutUs title="Who We Are" />
-        <ContactForm title="Contact Us" />
+        <ContactForm title="Contact Us" /> */}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

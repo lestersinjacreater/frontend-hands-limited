@@ -30,4 +30,3 @@ export function Products({ title, children }: SectionProps) {
     </section>
   );
 }
-
