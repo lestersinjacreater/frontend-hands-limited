@@ -17,14 +17,14 @@ export default function App() {
       <main>
         <HeroSection />
         <Products title="PRODUCTS" />
-        {/* <Services title="SERVICES" />
+        <Services title="SERVICES" />
         <Updates title="Updates" />
         <Testimonials title="What Our Clients Say About Us" />
         <WhyChooseUs title="Why Choose Us?" />
         <AboutUs title="Who We Are" />
-        <ContactForm title="Contact Us" /> */}
+        <ContactForm title="Contact Us" />
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
