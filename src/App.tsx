@@ -3,7 +3,7 @@ import { Hero } from './components/Hero';
 import { Products } from './components/Products';
 import { Services } from './components/Services';
 import { Updates } from './components/Updates';
-import { Testimonials } from './components/Testimonials';
+import TestimonialsSection, { Testimonials } from './components/Testimonials';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { AboutUs } from './components/AboutUs';
 import { ContactForm } from './components/ContactForm';
@@ -17,12 +17,12 @@ export default function App() {
       <main>
         <HeroSection />
         <Products title="PRODUCTS" />
-        <Services title="SERVICES" />
-        <Updates title="Updates" />
-        <Testimonials title="What Our Clients Say About Us" />
-        <WhyChooseUs title="Why Choose Us?" />
-        <AboutUs title="Who We Are" />
-        <ContactForm title="Contact Us" />
+        {/* <Services title="SERVICES" /> */}
+        {/* <Updates title="Updates" /> */}
+        <TestimonialsSection />
+        {/* <WhyChooseUs title="Why Choose Us?" /> */}
+        {/* <AboutUs title="Who We Are" /> */}
+        {/* <ContactForm title="Contact Us" /> */}
       </main>
       <Footer />
     </div>
