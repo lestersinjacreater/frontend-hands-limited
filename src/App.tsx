@@ -25,7 +25,7 @@ export default function App() {
         {/* <AboutUs title="Who We Are" /> */}
         {/* <ContactForm title="Contact Us" /> */}
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
