@@ -1,15 +1,12 @@
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-// import { Products } from './components/Products';
-import { Services } from './components/Services';
-import { Updates } from './components/Updates';
-import TestimonialsSection, { Testimonials } from './components/Testimonials';
-import WhyChooseUs from './components/WhyChooseUs';
-// import { AboutUs } from './components/AboutUs';
-// import  ContactForm  from './components/ContactForm';
 // import { Footer } from './components/Footer';
 import HeroSection from './components/Herosection';
 import Products from './components/Products';
+import TestimonialsScroll from './components/Testimonials';
+import UpdatesSection from './components/Updates';
+import WhoWeAreSection from './components/AboutUs';
+import ContactForm from './components/ContactForm';
+import WhyChooseUs from './components/WhyChooseUs';
 
 export default function App() {
   return (
@@ -20,12 +17,12 @@ export default function App() {
         <Products />
         {/* <Services title="SERVICES" /> */}
         {/* <Updates title="Updates" /> */}
-        <TestimonialsSection />
-        <WhyChooseUs title="Why Choose Us?" />
-        {/* <AboutUs title="Who We Are" /> */}
-        {/* <ContactForm title="Contact Us" /> */}
+        <TestimonialsScroll />
+        <UpdatesSection />
+        < WhyChooseUs />
+        <WhoWeAreSection />
+        <ContactForm />
       </main>
-      {/* <Footer /> */}
     </div>
   );
 }
