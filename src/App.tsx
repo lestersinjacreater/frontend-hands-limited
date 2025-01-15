@@ -1,10 +1,13 @@
 import { Header } from './components/Header';
 
-import { Footer } from './components/Footer';
+// import { Footer } from './components/Footer';
 import HeroSection from './components/Herosection';
 import Products from './components/Products';
 import TestimonialsScroll from './components/Testimonials';
 import UpdatesSection from './components/Updates';
+import WhoWeAreSection from './components/AboutUs';
+import ContactForm from './components/ContactForm';
+import WhyChooseUs from './components/WhyChooseUs';
 
 export default function App() {
   return (
@@ -17,11 +20,10 @@ export default function App() {
         {/* <Updates title="Updates" /> */}
         <TestimonialsScroll />
         <UpdatesSection />
-        {/* <WhyChooseUs title="Why Choose Us?" /> */}
-        {/* <AboutUs title="Who We Are" /> */}
-        {/* <ContactForm title="Contact Us" /> */}
+        < WhyChooseUs />
+        <WhoWeAreSection />
+        <ContactForm />
       </main>
-      <Footer />
     </div>
   );
 }
