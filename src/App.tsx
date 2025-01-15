@@ -1,6 +1,6 @@
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { Products } from './components/Products';
+// import { Products } from './components/Products';
 import { Services } from './components/Services';
 import { Updates } from './components/Updates';
 import TestimonialsSection, { Testimonials } from './components/Testimonials';
@@ -9,6 +9,7 @@ import { AboutUs } from './components/AboutUs';
 import { ContactForm } from './components/ContactForm';
 import { Footer } from './components/Footer';
 import HeroSection from './components/Herosection';
+import Products from './components/Products';
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
       <Header />
       <main>
         <HeroSection />
-        <Products title="PRODUCTS" />
+        <Products />
         {/* <Services title="SERVICES" /> */}
         {/* <Updates title="Updates" /> */}
         <TestimonialsSection />
