@@ -13,33 +13,33 @@ interface TestimonialProps {
 
 const testimonials = [
   {
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image_2025-01-14_173740735-KKVN0uNTkOctJxpYXrqd5X6HG1ntz5.png",
+    image: "https://th.bing.com/th/id/R.f65a7e03386f595cd874a31bf44f2d2d?rik=Pwj0Yv%2b0uNEcQw&pid=ImgRaw&r=0",
     name: "Hannah Schmitt",
     role: "Lead designer",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim"
   },
   {
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image_2025-01-14_173740735-KKVN0uNTkOctJxpYXrqd5X6HG1ntz5.png",
-    name: "Hannah Schmitt",
-    role: "Lead designer",
+    image: "https://img.freepik.com/premium-photo/mysterious-man-illustration_553012-67234.jpg",
+    name: "John Doe",
+    role: "Software Engineer",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim"
   },
   {
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image_2025-01-14_173740735-KKVN0uNTkOctJxpYXrqd5X6HG1ntz5.png",
-    name: "Hannah Schmitt",
-    role: "Lead designer",
+    image: "https://i.pinimg.com/736x/fb/d3/00/fbd300d11c93aebee6845221cb2fc292.jpg",
+    name: "Jane Smith",
+    role: "Product Manager",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim"
   },
   {
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image_2025-01-14_173740735-KKVN0uNTkOctJxpYXrqd5X6HG1ntz5.png",
-    name: "Hannah Schmitt",
-    role: "Lead designer",
+    image: "https://th.bing.com/th/id/OIP.TOgF9zMrpb95GUgyVZjUigHaJB?rs=1&pid=ImgDetMain",
+    name: "Michael Brown",
+    role: "Marketing Specialist",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim"
   },
   {
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image_2025-01-14_173740735-KKVN0uNTkOctJxpYXrqd5X6HG1ntz5.png",
-    name: "Hannah Schmitt",
-    role: "Lead designer",
+    image: "https://th.bing.com/th/id/OIP.tEKtENQfxJVFz_mT0uE8ZQHaJw?w=475&h=626&rs=1&pid=ImgDetMain",
+    name: "Emily Davis",
+    role: "UX Designer",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu. Faucibus venenatis felis id augue sit cursus pellentesque enim"
   }
 ]
@@ -49,11 +49,11 @@ const Testimonial: React.FC<TestimonialProps> = ({ image, name, role, content, i
     isActive ? 'w-full md:w-[700px] scale-100 opacity-100 z-20' 
     : 'w-full md:w-[500px] scale-90 opacity-70 z-10'
   }`}>
-    <div className="bg-white p-8 rounded-lg shadow-lg">
+    <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg">
       <div className="flex flex-col items-center">
         <div className="relative">
           <img 
-            src={image} 
+            src={image || "/placeholder.svg"} 
             alt={name} 
             className="w-24 h-24 rounded-full mb-6 object-cover"
           />
@@ -61,9 +61,9 @@ const Testimonial: React.FC<TestimonialProps> = ({ image, name, role, content, i
             <Quote className="w-5 h-5 text-white" />
           </div>
         </div>
-        <h3 className="text-2xl font-semibold mb-2">{name}</h3>
-        <p className="text-gray-600 mb-6 text-lg">{role}</p>
-        <p className="text-gray-700 text-center text-lg leading-relaxed">{content}</p>
+        <h3 className="text-2xl font-semibold mb-2 text-white">{name}</h3>
+        <p className="text-blue-300 mb-6 text-lg">{role}</p>
+        <p className="text-gray-200 text-center text-lg leading-relaxed">{content}</p>
       </div>
     </div>
     <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-blue-500 rounded-full -z-10 transform -translate-x-1/2 opacity-30"></div>
@@ -104,11 +104,15 @@ export default function TestimonialsScroll() {
   }
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center py-24 px-4 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto w-full">
-        <h2 className="text-4xl md:text-5xl font-semibold text-center mb-16">
+    <section className="relative min-h-screen flex flex-col justify-center items-center py-24 px-4">
+      {/* Gradient overlay for smooth transition */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent z-10"></div>
+      
+      {/* Main content */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-semibold text-center mb-16 text-white">
           What Our{' '}
-          <span className="text-blue-600">Clients Say About Us</span>
+          <span className="text-blue-300">Clients Say About Us</span>
         </h2>
 
         <div className="relative w-full max-w-7xl mx-auto overflow-hidden">
@@ -157,6 +161,10 @@ export default function TestimonialsScroll() {
           ))}
         </div>
       </div>
+
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900 to-black -z-10"></div>
     </section>
   )
 }
+
