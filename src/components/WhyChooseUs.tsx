@@ -14,8 +14,7 @@ const features: FeatureCard[] = [
   {
     number: "02",
     title: "Quality Assurance",
-    description: "We pride ourselves in delivering high quality products and services that meet international standards",
-    isHighlighted: true
+    description: "We pride ourselves in delivering high quality products and services that meet international standards"
   },
   {
     number: "03",
@@ -31,6 +30,11 @@ const features: FeatureCard[] = [
     number: "05",
     title: "Hassle-Free Process",
     description: "We handle all the research, negotiations, and paperwork for you, making the process of finding"
+  },
+  {
+    number: "06",
+    title: "Customer Support",
+    description: "Our dedicated customer support team is available 24/7 to assist you with any questions or concerns you may have"
   }
 ]
 
@@ -56,7 +60,7 @@ export default function WhyChooseUs() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`p-8 rounded-2xl transition-all duration-300 hover:shadow-xl ${
+              className={`p-8 rounded-2xl transition-all duration-300 hover:shadow-xl hover:bg-blue-600/90 hover:backdrop-blur-md ${
                 feature.isHighlighted 
                   ? 'bg-blue-600/90 backdrop-blur-md' 
                   : 'bg-white/10 backdrop-blur-md'
@@ -91,5 +95,3 @@ export default function WhyChooseUs() {
     </section>
   )
 }
-
-export default WhyChooseUs;
