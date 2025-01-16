@@ -7,6 +7,7 @@ import UpdatesSection from './components/Updates';
 import WhoWeAreSection from './components/AboutUs';
 import ContactForm from './components/ContactForm';
 import WhyChooseUs from './components/WhyChooseUs';
+import Services from './components/Services';
 
 export default function App() {
   return (
@@ -15,8 +16,7 @@ export default function App() {
       <main>
         <HeroSection />
         <Products />
-        {/* <Services title="SERVICES" /> */}
-        {/* <Updates title="Updates" /> */}
+        <Services />
         <TestimonialsScroll />
         <UpdatesSection />
         < WhyChooseUs />
