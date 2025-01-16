@@ -9,7 +9,7 @@ interface UpdateCard {
 
 const updates: UpdateCard[] = [
   {
-    image: "https://media.istockphoto.com/id/157613698/photo/united-nations-building.jpg?s=1024x1024&w=is&k=20&c=UYLiAgy18PplaU6hMItjmVsifAQO1Em66feGoqeusSU=",
+    image: "https://media.istockphoto.com/id/157180533/photo/photograph-of-the-untied-nations-in-geneva.jpg?s=2048x2048&w=is&k=20&c=WOXOg1tHTTOYj4yYqmibUTBYgsHqC3v_QkznPZ04E5s=",
     date: "24 Oct,2021",
     title: "Lorem Ipsum passage, used since the 1500s",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
