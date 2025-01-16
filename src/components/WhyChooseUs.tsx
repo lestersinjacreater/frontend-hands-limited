@@ -92,3 +92,4 @@ export default function WhyChooseUs() {
   )
 }
 
+export default WhyChooseUs;
