@@ -15,8 +15,8 @@ export function Header() {
   }, [location])
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-10">
-      <div className="bg-gradient-to-b from-black via-black/70 to-transparent pt-4 pb-8">
+    <header className="relative top-0 left-0 right-0 z-10">
+      <div className="bg-gradient-to-br from-black/90 via-blue-900/60 to-black pt-4 pb-8">
         <nav className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-4 pl-4">
             <img 
@@ -26,14 +26,13 @@ export function Header() {
             />
             <span className="text-white text-xl font-bold">HandsLTD</span>
           </div>
-          <ul className="hidden md:flex space-x-4">
-            <li><a id="home-link" href="#Herosection" className="text-white hover:text-blue-400 transition-colors duration-200">Home</a></li>
-            <li><a id="services-link" href="#services" className="text-white hover:text-blue-400 transition-colors duration-200">Services</a></li>
-            <li><a id="testimonials-link" href="#testimonials" className="text-white hover:text-blue-400 transition-colors duration-200">Testimonials</a></li>
-            <li><a id="updates-link" href="#updates" className="text-white hover:text-blue-400 transition-colors duration-200">Updates</a></li>
-            <li><a id="about-link" href="#about" className="text-white hover:text-blue-400 transition-colors duration-200">About</a></li>
-            <li><a id="contact-link" href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us</a></li>
-            {/* <li><Link id="admin-login-link" to="/admin" className="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-full border-2 border-white transition-colors duration-200">Admin Login</Link></li> */}
+          <ul className="flex space-x-4">
+            <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200">Home</a></li>
+            <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200">Services</a></li>
+            <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200">Testimonials</a></li>
+            <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200">Updates</a></li>
+            <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200">About</a></li>
+            <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200">Contact</a></li>
           </ul>
           <div className="md:hidden flex items-center">
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
