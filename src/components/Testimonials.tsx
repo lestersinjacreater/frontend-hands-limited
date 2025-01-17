@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import axios from 'axios'
+import Modal from './registration'
 
 interface User {
   username: string
@@ -64,12 +65,13 @@ export default function TestimonialsScroll() {
   const [testimonials, setTestimonials] = useState<TestimonialProps[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
   const [autoplay, setAutoplay] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const totalTestimonials = testimonials.length
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/testimonials')
+        const response = await axios.get('https://rest-api-for-hands.onrender.com/testimonials')
         setTestimonials(response.data)
       } catch (error) {
         console.error('Error fetching testimonials:', error)
@@ -162,7 +164,10 @@ export default function TestimonialsScroll() {
         </div>
 
         <div className="flex justify-center mt-4">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
             Leave a Testimonial
           </button>
         </div>
@@ -170,6 +175,9 @@ export default function TestimonialsScroll() {
 
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900 to-black -z-10"></div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   )
 }

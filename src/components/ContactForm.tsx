@@ -2,6 +2,8 @@
 
 import { Phone, Mail, MapPin, Twitter, Instagram, Youtube, Send } from 'lucide-react'
 import { useState } from 'react'
+import axios from 'axios'
+import Notification from './Notification'
 
 interface FormData {
   firstName: string
@@ -21,11 +23,56 @@ export default function ContactForm() {
     subject: 'General Inquiry',
     message: ''
   })
+  const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log(formData)
+
+    // Custom validation for email and phone number
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const phonePattern = /^(?:\+?[1-9]\d{1,14}|0[17]\d{8})$/
+
+    if (!emailPattern.test(formData.email)) {
+      setNotification({ message: 'Please enter a valid email address.', type: 'error' })
+      return
+    }
+
+    if (!phonePattern.test(formData.phone)) {
+      setNotification({ message: 'Please enter a valid phone number.', type: 'error' })
+      return
+    }
+
+    // Prepare request data
+    const requestData = {
+      firstname: formData.firstName,
+      lastname: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject.toLowerCase().replace(' ', '_'),
+      message: formData.message
+    }
+
+    console.log('Submitting form with data:', requestData)
+
+    try {
+      // Send POST request to the backend
+      const response = await axios.post('http://localhost:8000/clients', requestData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log('Response from server:', response.data)
+      setNotification({ message: 'Message sent successfully!', type: 'success' })
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error response:', error.response?.data)
+        setNotification({ message: `Failed to send message: ${error.response?.data}`, type: 'error' })
+      } else {
+        console.error('Unexpected error:', error)
+        setNotification({ message: 'Failed to send message due to an unexpected error.', type: 'error' })
+      }
+    }
   }
 
   return (
@@ -95,7 +142,11 @@ export default function ContactForm() {
                     className="w-full border-b-2 border-gray-200 py-2 focus:border-orange-400 outline-none transition-colors"
                     placeholder="John"
                     value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    onChange={(e) => {
+                      console.log('First Name:', e.target.value)
+                      setFormData({...formData, firstName: e.target.value})
+                    }}
+                    required
                   />
                 </div>
                 <div>
@@ -105,7 +156,11 @@ export default function ContactForm() {
                     className="w-full border-b-2 border-gray-200 py-2 focus:border-orange-400 outline-none transition-colors"
                     placeholder="Doe"
                     value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                    onChange={(e) => {
+                      console.log('Last Name:', e.target.value)
+                      setFormData({...formData, lastName: e.target.value})
+                    }}
+                    required
                   />
                 </div>
               </div>
@@ -118,7 +173,11 @@ export default function ContactForm() {
                     className="w-full border-b-2 border-gray-200 py-2 focus:border-orange-400 outline-none transition-colors"
                     placeholder="email@example.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => {
+                      console.log('Email:', e.target.value)
+                      setFormData({...formData, email: e.target.value})
+                    }}
+                    required
                   />
                 </div>
                 <div>
@@ -128,7 +187,11 @@ export default function ContactForm() {
                     className="w-full border-b-2 border-gray-200 py-2 focus:border-orange-400 outline-none transition-colors"
                     placeholder="+1 234 567 890"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => {
+                      console.log('Phone:', e.target.value)
+                      setFormData({...formData, phone: e.target.value})
+                    }}
+                    required
                   />
                 </div>
               </div>
@@ -136,15 +199,19 @@ export default function ContactForm() {
               <div>
                 <label className="block text-orange-400 mb-4">Select Subject?</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {['General Inquiry', 'General Inquiry', 'General Inquiry', 'General Inquiry'].map((option, index) => (
+                  {['General Inquiry', 'Product Support', 'Billing', 'Other'].map((option, index) => (
                     <label key={index} className="flex items-center space-x-2 cursor-pointer">
                       <input
                         type="radio"
                         name="subject"
                         value={option}
                         checked={formData.subject === option}
-                        onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                        onChange={(e) => {
+                          console.log('Subject:', e.target.value)
+                          setFormData({...formData, subject: e.target.value})
+                        }}
                         className="w-4 h-4 text-orange-400 border-gray-300 focus:ring-orange-400"
+                        required
                       />
                       <span className="text-sm text-gray-600">{option}</span>
                     </label>
@@ -159,7 +226,11 @@ export default function ContactForm() {
                   rows={4}
                   placeholder="Write your message.."
                   value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  onChange={(e) => {
+                    console.log('Message:', e.target.value)
+                    setFormData({...formData, message: e.target.value})
+                  }}
+                  required
                 ></textarea>
               </div>
 
@@ -176,7 +247,7 @@ export default function ContactForm() {
           </div>
         </div>
       </div>
+      {notification && <Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />}
     </section>
   )
 }
-
