@@ -7,6 +7,7 @@ import Services from "./components/Services";
 import TestimonialsScroll from "./components/Testimonials";
 import UpdatesSection from "./components/Updates";
 import WhyChooseUs from "./components/WhyChooseUs";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <WhoWeAreSection />
         <ContactForm />
       </main>
+      <Footer/>
     </div>
   )
 }
