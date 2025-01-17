@@ -57,7 +57,7 @@ export default function ContactForm() {
 
     try {
       // Send POST request to the backend
-      const response = await axios.post('https://rest-api-for-hands.onrender.com/clients', requestData, {
+      const response = await axios.post('http://localhost:8000/clients', requestData, {
         headers: {
           'Content-Type': 'application/json'
         }
