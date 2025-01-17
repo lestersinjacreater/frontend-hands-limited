@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import Services from "./components/Services";
 import TestimonialsScroll from "./components/Testimonials";
 import UpdatesSection from "./components/Updates";
+import WhyChooseUs from "./components/WhyChooseUs";
 
 export default function App() {
   return (
