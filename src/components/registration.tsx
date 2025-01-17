@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://localhost:8000/auth/register', {
+      await axios.post('https://rest-api-for-hands.onrender.com/auth/register', {
         username,
         email,
         position,
