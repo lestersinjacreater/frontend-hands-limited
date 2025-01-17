@@ -6,7 +6,6 @@ import Products from "./components/Products";
 import Services from "./components/Services";
 import TestimonialsScroll from "./components/Testimonials";
 import UpdatesSection from "./components/Updates";
-import WhyChooseUs from "./components/WhyChooseUs";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -14,16 +13,15 @@ export default function App() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main>
-        <HeroSection />
-        <Products />
-        <Services />
-        <TestimonialsScroll />
-        <UpdatesSection />
-        < WhyChooseUs />
-        <WhoWeAreSection />
-        <ContactForm />
+        <section id="home"><HeroSection /></section>
+        <section id="products"><Products /></section>
+        <section id="services"><Services /></section>
+        <section id="testimonials"><TestimonialsScroll /></section>
+        <section id="updates"><UpdatesSection /></section>
+        <section id="about"><WhoWeAreSection /></section>
+        <section id="contact"><ContactForm /></section>
+        <section id="footer"><Footer/></section>
       </main>
-      <Footer/>
     </div>
-  )
+  );
 }
