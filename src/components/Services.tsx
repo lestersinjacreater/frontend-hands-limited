@@ -6,7 +6,7 @@ interface ServiceCardProps {
 
 function ServiceCard({ title, description, image }: ServiceCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl group h-[600px] flex flex-col shadow-lg">
+    <div className="relative overflow-hidden rounded-3xl group h-[450px] flex flex-col shadow-lg">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
@@ -95,4 +95,3 @@ export default function Services() {
     </section>
   )
 }
-
