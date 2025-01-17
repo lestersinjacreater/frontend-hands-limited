@@ -71,7 +71,7 @@ export default function TestimonialsScroll() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/testimonials')
+        const response = await axios.get('https://rest-api-for-hands.onrender.com/testimonials')
         setTestimonials(response.data)
       } catch (error) {
         console.error('Error fetching testimonials:', error)
