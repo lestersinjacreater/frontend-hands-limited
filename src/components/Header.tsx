@@ -1,4 +1,27 @@
+import React, { useState, useEffect } from 'react'
+
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as Element).classList.contains('menu-overlay')) {
+      setIsMenuOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [isMenuOpen])
+
   return (
     <header className="relative top-0 left-0 right-0 z-10">
       <div className="bg-gradient-to-br from-black/90 via-blue-900/60 to-black pt-4 pb-8">
@@ -11,16 +34,39 @@ export function Header() {
             />
             <span className="text-white text-xl font-bold">HandsLTD</span>
           </div>
-          <ul className="flex space-x-4">
-            <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200">Home</a></li>
-            <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200">Services</a></li>
-            <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200">Testimonials</a></li>
-            <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200">Updates</a></li>
-            <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200">About</a></li>
-            <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200">Contact</a></li>
-          </ul>
+          <div className="hidden md:flex space-x-4">
+            <ul className="flex space-x-4">
+              <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200">Home</a></li>
+              <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200">Services</a></li>
+              <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200">Testimonials</a></li>
+              <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200">Updates</a></li>
+              <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200">About</a></li>
+              <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200">Contact</a></li>
+            </ul>
+          </div>
+          <div className="md:hidden flex items-center">
+            <button onClick={() => setIsMenuOpen(true)} className="text-white focus:outline-none">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
         </nav>
+        {isMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-start z-50 p-4 menu-overlay" onClick={handleOutsideClick}>
+            <div className="bg-white/10 backdrop-blur-md p-4 md:p-8 rounded-lg shadow-lg w-full max-w-xs md:max-w-md">
+              <ul className="flex flex-col space-y-4">
+                <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</a></li>
+                <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Services</a></li>
+                <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Testimonials</a></li>
+                <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Updates</a></li>
+                <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</a></li>
+                <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
     </header>
-  );
+  )
 }

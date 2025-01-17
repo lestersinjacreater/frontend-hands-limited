@@ -26,7 +26,6 @@ const updates: UpdateCard[] = [
     title: "Lorem Ipsum passage, used since the 1500s",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   }
-  
 ]
 
 export default function UpdatesSection() {
@@ -37,11 +36,11 @@ export default function UpdatesSection() {
       
       {/* Main content */}
       <div className="relative z-20 max-w-7xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold text-blue-300 mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-blue-300 mb-8 md:mb-12">
           Updates
         </h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {updates.map((update, index) => (
             <article key={index} className="flex flex-col bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
               <div className="relative aspect-[4/3] mb-6">
@@ -86,4 +85,3 @@ export default function UpdatesSection() {
     </section>
   )
 }
-

@@ -31,21 +31,21 @@ const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
       isActive ? 'w-full md:w-[700px] scale-100 opacity-100 z-20' 
       : 'w-full md:w-[500px] scale-90 opacity-70 z-10'
     }`}>
-      <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg max-h-[400px] overflow-hidden">
+      <div className="bg-white/10 backdrop-blur-md p-4 md:p-8 rounded-lg shadow-lg max-h-[400px] overflow-hidden">
         <div className="flex flex-col items-center">
           <div className="relative">
             <img 
               src={`https://via.placeholder.com/150?text=${user.username.charAt(0)}`} 
               alt={user.username} 
-              className="w-24 h-24 rounded-full mb-6 object-cover"
+              className="w-16 h-16 md:w-24 md:h-24 rounded-full mb-4 md:mb-6 object-cover"
             />
             <div className="absolute -top-2 -right-2 bg-blue-500 rounded-full p-2">
-              <Quote className="w-5 h-5 text-white" />
+              <Quote className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
           </div>
-          <h3 className="text-2xl font-semibold mb-2 text-white">{user.username}</h3>
-          <p className="text-blue-300 mb-6 text-lg">{user.position}</p>
-          <p className={`text-gray-200 text-center text-lg leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`}>
+          <h3 className="text-xl md:text-2xl font-semibold mb-2 text-white">{user.username}</h3>
+          <p className="text-blue-300 mb-4 md:mb-6 text-base md:text-lg">{user.position}</p>
+          <p className={`text-gray-200 text-center text-base md:text-lg leading-relaxed ${isExpanded ? '' : 'line-clamp-3'}`}>
             {text}
           </p>
           {text.length > 100 && (
@@ -55,8 +55,8 @@ const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
           )}
         </div>
       </div>
-      <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-blue-500 rounded-full -z-10 transform -translate-x-1/2 opacity-30"></div>
-      <div className="absolute -top-6 -right-6 w-40 h-40 bg-blue-500 rounded-full -z-10 transform translate-x-1/2 opacity-30"></div>
+      <div className="absolute -bottom-6 -left-6 w-20 h-20 md:w-40 md:h-40 bg-blue-500 rounded-full -z-10 transform -translate-x-1/2 opacity-30"></div>
+      <div className="absolute -top-6 -right-6 w-20 h-20 md:w-40 md:h-40 bg-blue-500 rounded-full -z-10 transform translate-x-1/2 opacity-30"></div>
     </div>
   )
 }
@@ -117,7 +117,7 @@ export default function TestimonialsScroll() {
 
         <div className="relative w-full max-w-7xl mx-auto overflow-hidden">
           {totalTestimonials > 0 ? (
-            <div className="flex items-center justify-center gap-6 md:gap-12">
+            <div className="flex items-center justify-center gap-4 md:gap-6 lg:gap-12">
               {[0, 1, 2].map((offset) => {
                 const testimonialIndex = (activeIndex + offset) % totalTestimonials
                 const isCenter = offset === 1
