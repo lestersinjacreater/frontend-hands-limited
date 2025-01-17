@@ -37,8 +37,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg w-3/4 max-w-3xl">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-lg w-full max-w-3xl">
         <h2 className="text-2xl font-semibold mb-4 text-white">Leave a Testimonial</h2>
         <div className="mb-4">
           <label className="block text-gray-300">Name</label>
