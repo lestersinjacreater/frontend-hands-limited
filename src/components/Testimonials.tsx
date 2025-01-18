@@ -7,6 +7,7 @@ import axios from 'axios'
 interface User {
   username: string
   position: string
+  profilePicture: string
 }
 
 interface TestimonialProps {
@@ -34,7 +35,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
         <div className="flex flex-col items-center">
           <div className="relative">
             <img 
-              src={`https://via.placeholder.com/150?text=${user.username.charAt(0)}`} 
+              src={user.profilePicture} 
               alt={user.username} 
               className="w-24 h-24 rounded-full mb-6 object-cover"
             />
@@ -66,6 +67,45 @@ export default function TestimonialsScroll() {
   const [autoplay, setAutoplay] = useState(true)
   const totalTestimonials = testimonials.length
 
+  const defaultTestimonials: TestimonialProps[] = [
+    {
+      testimonialid: 1,
+      userId: 1,
+      text: "This is an amazing service! Highly recommended.",
+      createdAt: "2023-01-01",
+      user: { 
+        username: "John Doe", 
+        position: "CEO", 
+        profilePicture: "https://via.placeholder.com/150?text=JD" 
+      },
+      isActive: false
+    },
+    {
+      testimonialid: 2,
+      userId: 2,
+      text: "The quality of the products is top-notch. Very satisfied.",
+      createdAt: "2023-01-02",
+      user: { 
+        username: "Jane Smith", 
+        position: "Manager", 
+        profilePicture: "https://via.placeholder.com/150?text=JS" 
+      },
+      isActive: false
+    },
+    {
+      testimonialid: 3,
+      userId: 3,
+      text: "Excellent customer support and fast delivery.",
+      createdAt: "2023-01-03",
+      user: { 
+        username: "Alice Johnson", 
+        position: "Director", 
+        profilePicture: "https://via.placeholder.com/150?text=AJ" 
+      },
+      isActive: false
+    }
+  ]
+
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
@@ -73,6 +113,7 @@ export default function TestimonialsScroll() {
         setTestimonials(response.data)
       } catch (error) {
         console.error('Error fetching testimonials:', error)
+        setTestimonials(defaultTestimonials)
       }
     }
 
