@@ -5,6 +5,7 @@ import HeroSection from "./components/Herosection";
 import Products from "./components/Products";
 import Services from "./components/Services";
 import TestimonialsScroll from "./components/Testimonials";
+import WhyChooseUs from "./components/WhyChooseUs";
 import UpdatesSection from "./components/Updates";
 import Footer from "./components/Footer";
 
@@ -17,6 +18,7 @@ export default function App() {
         <section id="products"><Products /></section>
         <section id="services"><Services /></section>
         <section id="testimonials"><TestimonialsScroll /></section>
+        <section id="WhyChooseUs"><WhyChooseUs/></section>
         <section id="updates"><UpdatesSection /></section>
         <section id="about"><WhoWeAreSection /></section>
         <section id="contact"><ContactForm /></section>

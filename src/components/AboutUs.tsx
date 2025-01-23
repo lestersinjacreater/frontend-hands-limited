@@ -1,4 +1,15 @@
+import React, { useState } from 'react'
+//import Link from 'next/link'
+import Modal from './modal'
+import ExtensionAboutUs from './extensionaboutus'
+
 export default function WhoWeAreSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleReadMore = () => {
+    setIsModalOpen(true)
+  }
+
   return (
     <section className="relative py-16 px-4">
       {/* Gradient overlay for smooth transition */}
@@ -17,12 +28,18 @@ export default function WhoWeAreSection() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="px-8 py-3 bg-white/10 backdrop-blur-md text-blue-300 rounded-full border-2 border-blue-300/20 font-semibold hover:bg-blue-300/10 transition-colors">
+              <button 
+                onClick={handleReadMore}
+                className="px-8 py-3 bg-white/10 backdrop-blur-md text-blue-300 rounded-full border-2 border-blue-300/20 font-semibold hover:bg-blue-300/10 transition-colors"
+              >
                 Read More
               </button>
-              <button className="px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">
-                Contact us today
-              </button>
+              <button 
+            className="px-8 py-3 text-white text-lg font-medium rounded-full
+                     bg-blue-600/90 hover:bg-blue-700 transition-colors duration-300"
+          >
+            <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us today</a>
+          </button>
             </div>
           </div>
 
@@ -50,7 +67,11 @@ export default function WhoWeAreSection() {
 
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900 to-black -z-10"></div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ExtensionAboutUs />
+      </Modal>
     </section>
   )
 }
-
