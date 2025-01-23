@@ -39,13 +39,14 @@ export function Header() {
             />
             <span className="text-white text-xl font-bold">HandsLTD</span>
           </div>
-          <ul className="flex space-x-4">
+          <ul className="flex space-x-4 items-center">
             <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200">Home</a></li>
             <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200">Services</a></li>
             <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200">Testimonials</a></li>
             <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200">Updates</a></li>
             <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200">About</a></li>
             <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200">Contact</a></li>
+            <li><a href="#login" className="text-white hover:text-blue-300 transition-colors duration-200">Login</a></li>
           </ul>
         </nav>
         {isMenuOpen && (
@@ -58,6 +59,7 @@ export function Header() {
                 <li><a href="#updates" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Updates</a></li>
                 <li><a href="#about" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</a></li>
                 <li><a href="#contact" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+                <li><a href="#login" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Login</a></li>
               </ul>
             </div>
           </div>
@@ -66,4 +68,3 @@ export function Header() {
     </header>
   );
 }
-
