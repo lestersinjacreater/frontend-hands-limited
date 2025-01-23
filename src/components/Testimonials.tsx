@@ -5,11 +5,13 @@ import { Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import axios from 'axios'
 import Modal from './registration'
 
+// Define the User interface
 interface User {
   username: string
   position: string
 }
 
+// Define the TestimonialProps interface
 interface TestimonialProps {
   testimonialid: number
   userId: number
@@ -19,9 +21,11 @@ interface TestimonialProps {
   isActive: boolean
 }
 
+// Testimonial component to display individual testimonials
 const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
+  // Toggle the expanded state of the testimonial text
   const toggleExpand = () => {
     setIsExpanded(!isExpanded)
     console.log(`Testimonial for ${user.username} expanded: ${!isExpanded}`)
@@ -62,6 +66,7 @@ const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
   )
 }
 
+// Main component to display the testimonials carousel
 export default function TestimonialsScroll() {
   const [testimonials, setTestimonials] = useState<TestimonialProps[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
@@ -69,6 +74,7 @@ export default function TestimonialsScroll() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const totalTestimonials = testimonials.length
 
+  // Fetch testimonials from the API
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
@@ -84,6 +90,7 @@ export default function TestimonialsScroll() {
     fetchTestimonials()
   }, [])
 
+  // Autoplay functionality for the testimonials carousel
   useEffect(() => {
     if (!autoplay || totalTestimonials === 0) return
 
@@ -99,12 +106,14 @@ export default function TestimonialsScroll() {
     }
   }, [autoplay, totalTestimonials])
 
+  // Function to go to the next slide
   const nextSlide = () => {
     setActiveIndex((current) => (current + 1) % totalTestimonials)
     setAutoplay(false)
     console.log('Next slide - new active index:', (activeIndex + 1) % totalTestimonials)
   }
 
+  // Function to go to the previous slide
   const prevSlide = () => {
     setActiveIndex((current) => 
       current === 0 ? totalTestimonials - 1 : current - 1
