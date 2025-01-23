@@ -8,7 +8,7 @@ import TestimonialsScroll from "../components/Testimonials";
 import UpdatesSection from "../components/Updates";
 import Footer from "../components/Footer";
 
-export default function LandingPage() {
+export default function LandingPage({isAuthenticated}: {isAuthenticated: boolean}) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header isAuthenticated={true} />
