@@ -1,29 +1,48 @@
-import WhoWeAreSection from "./components/AboutUs";
-import ContactForm from "./components/ContactForm";
-import { Header } from "./components/Header";
-import HeroSection from "./components/Herosection";
-import Products from "./components/Products";
-import Services from "./components/Services";
-import TestimonialsScroll from "./components/Testimonials";
-import WhyChooseUs from "./components/WhyChooseUs";
-import UpdatesSection from "./components/Updates";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
+import  LandingPage  from './components/LandingPage';
+import { DashboardLayout } from './components/DashboardLayout';
+import { DashboardOverview } from './components/dashboard/DashboardOverview';
+import { Customers } from './components/dashboard/Customers';
+import { Orders } from './components/dashboard/Orders';
+import { Analytics } from './components/dashboard/Analytics';
+import { Messages } from './components/dashboard/Messages';
+import { Settings } from './components/dashboard/Settings';
+import { Login } from './components/Login';
 
-export default function App() {
+function App() {
+  const { isAuthenticated, login, logout } = useAuth();
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main>
-        <section id="home"><HeroSection /></section>
-        <section id="products"><Products /></section>
-        <section id="services"><Services /></section>
-        <section id="testimonials"><TestimonialsScroll /></section>
-        <section id="WhyChooseUs"><WhyChooseUs/></section>
-        <section id="updates"><UpdatesSection /></section>
-        <section id="about"><WhoWeAreSection /></section>
-        <section id="contact"><ContactForm /></section>
-        <section id="footer"><Footer/></section>
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage isAuthenticated={isAuthenticated} />} />
+        <Route 
+          path="/login" 
+          element={
+            isAuthenticated ? 
+            <Navigate to="/dashboard" replace /> : 
+            <Login onLogin={login} />
+          } 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            isAuthenticated ? 
+            <DashboardLayout onLogout={logout} /> : 
+            <Navigate to="/login" replace />
+          }
+        >
+          <Route index element={<DashboardOverview />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
+
+export default App;
