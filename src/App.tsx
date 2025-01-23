@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import Services from "./components/Services";
 import TestimonialsScroll from "./components/Testimonials";
 import UpdatesSection from "./components/Updates";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <section id="updates"><UpdatesSection /></section>
         <section id="about"><WhoWeAreSection /></section>
         <section id="contact"><ContactForm /></section>
+        <section id="footer"><Footer/></section>
       </main>
     </div>
   );

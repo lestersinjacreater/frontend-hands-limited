@@ -17,9 +17,9 @@ function ServiceCard({ title, description, image }: ServiceCardProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent group-hover:from-black/80 group-hover:via-black/60 transition-colors duration-300" />
       
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full p-8">
+      <div className="relative z-10 flex flex-col h-full p-4 md:p-8">
         {/* Title at the top */}
-        <h3 className="text-orange-400 text-3xl font-bold leading-tight mb-4">
+        <h3 className="text-orange-400 text-2xl md:text-3xl font-bold leading-tight mb-2 md:mb-4">
           {title}
         </h3>
 
@@ -28,14 +28,14 @@ function ServiceCard({ title, description, image }: ServiceCardProps) {
 
         {/* Description and button at the bottom */}
         <div>
-          <p className="text-white/90 text-lg leading-relaxed tracking-wide mb-6">
+          <p className="text-white/90 text-base md:text-lg leading-relaxed tracking-wide mb-4 md:mb-6">
             {description}
           </p>
           <a 
             href="#"
-            className="inline-flex items-center justify-center px-8 py-3
+            className="inline-flex items-center justify-center px-6 py-2 md:px-8 md:py-3
                      bg-blue-600 hover:bg-blue-700 text-white rounded-full 
-                     transition-all duration-300 text-base font-medium
+                     transition-all duration-300 text-sm md:text-base font-medium
                      hover:transform hover:translate-y-[-2px] hover:shadow-lg
                      self-start"
           >
@@ -79,10 +79,10 @@ export default function Services() {
       {/* Main content */}
       <div className="relative z-20 py-20 px-4 bg-gradient-to-b from-black via-blue-900 to-black">
         <div className="container mx-auto">
-          <h2 className="text-blue-300 text-5xl font-bold mb-12">
+          <h2 className="text-blue-300 text-4xl md:text-5xl font-bold mb-8 md:mb-12">
             SERVICES
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service) => (
               <ServiceCard
                 key={service.title}

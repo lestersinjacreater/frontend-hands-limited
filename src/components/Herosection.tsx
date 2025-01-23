@@ -25,15 +25,11 @@ export default function HeroSection() {
           <button 
             className="px-8 py-3 text-white text-lg font-medium rounded-full
                      bg-blue-600/90 hover:bg-blue-700 transition-colors duration-300"
-            // <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact</a>
           >
-          <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us today</a>
-
-            {/* Contact us today */}
+            <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us today</a>
           </button>
         </div>
       </div>
     </div>
   );
 }
-

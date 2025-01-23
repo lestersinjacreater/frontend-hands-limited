@@ -1,9 +1,35 @@
-import { Link } from "react-scroll";
+import React, { useState, useEffect } from "react";
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Handles clicks outside the menu (on the overlay) to close the menu
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as Element).classList.contains("menu-overlay")) {
+      setIsMenuOpen(false); // Close the menu when clicking on the overlay
+    }
+  };
+
+  useEffect(() => {
+    // Closes the menu if the window is resized to a larger screen (>= 768px)
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the resize event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isMenuOpen]);
+
   return (
     <header className="relative top-0 left-0 right-0 z-10">
-      <div className="bg-gradient-to-b from-black via-black/70 to-black pt-4 pb-5">
+      <div className="bg-gradient-to-br from-black/90 via-blue-900/60 to-black pt-4 pb-8">
         <nav className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-4 pl-4">
             <img 
@@ -14,29 +40,30 @@ export function Header() {
             <span className="text-white text-xl font-bold">HandsLTD</span>
           </div>
           <ul className="flex space-x-4">
-            {[
-              { name: 'Home', id: 'hero' },
-              { name: 'Services', id: 'services' },
-              { name: 'Testimonials', id: 'testimonials' },
-              { name: 'Updates', id: 'updates' },
-              { name: 'About', id: 'about' },
-              { name: 'Contact us', id: 'contact' }
-            ].map(({ name, id }) => (
-              <li key={id}>
-                <Link 
-                  to={id} 
-                  smooth={true} 
-                  duration={600} 
-                  offset={-80} // Adjust for fixed navbar
-                  className="text-white hover:text-blue-400 transition-colors duration-200 cursor-pointer"
-                >
-                  {name}
-                </Link>
-              </li>
-            ))}
+            <li><a href="#home" className="text-white hover:text-blue-300 transition-colors duration-200">Home</a></li>
+            <li><a href="#services" className="text-white hover:text-blue-300 transition-colors duration-200">Services</a></li>
+            <li><a href="#testimonials" className="text-white hover:text-blue-300 transition-colors duration-200">Testimonials</a></li>
+            <li><a href="#updates" className="text-white hover:text-blue-300 transition-colors duration-200">Updates</a></li>
+            <li><a href="#about" className="text-white hover:text-blue-300 transition-colors duration-200">About</a></li>
+            <li><a href="#contact" className="text-white hover:text-blue-300 transition-colors duration-200">Contact</a></li>
           </ul>
         </nav>
+        {isMenuOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-start z-50 p-4 menu-overlay" onClick={handleOutsideClick}>
+            <div className="bg-white/10 backdrop-blur-md p-4 md:p-8 rounded-lg shadow-lg w-full max-w-xs md:max-w-md">
+              <ul className="flex flex-col space-y-4">
+                <li><a href="#home" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</a></li>
+                <li><a href="#services" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Services</a></li>
+                <li><a href="#testimonials" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Testimonials</a></li>
+                <li><a href="#updates" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Updates</a></li>
+                <li><a href="#about" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</a></li>
+                <li><a href="#contact" className="text-white hover:text-orange-300 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
 }
+
