@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 export default function LandingPage({isAuthenticated}: {isAuthenticated: boolean}) {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header isAuthenticated={true} />
+      <Header isAuthenticated={isAuthenticated} />
       <main>
         <section id="home"><HeroSection /></section>
         <section id="products"><Products /></section>
