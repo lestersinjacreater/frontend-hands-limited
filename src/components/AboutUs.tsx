@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-//import Link from 'next/link'
-import Modal from './modal'
-import ExtensionAboutUs from './extensionaboutus'
+import HandsKenyaProfile from './extensionaboutus'
 
 export default function WhoWeAreSection() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,11 +33,11 @@ export default function WhoWeAreSection() {
                 Read More
               </button>
               <button 
-            className="px-8 py-3 text-white text-lg font-medium rounded-full
+                className="px-8 py-3 text-white text-lg font-medium rounded-full
                      bg-blue-600/90 hover:bg-blue-700 transition-colors duration-300"
-          >
-            <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us today</a>
-          </button>
+              >
+                <a href="#contact" className="text-white hover:text-blue-400 transition-colors duration-200">Contact us today</a>
+              </button>
             </div>
           </div>
 
@@ -69,9 +67,7 @@ export default function WhoWeAreSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900 to-black -z-10"></div>
 
       {/* Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ExtensionAboutUs />
-      </Modal>
+      {isModalOpen && <HandsKenyaProfile setIsModalOpen={setIsModalOpen} />}
     </section>
   )
 }
