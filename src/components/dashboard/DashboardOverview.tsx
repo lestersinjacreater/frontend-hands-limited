@@ -1,4 +1,3 @@
-import React from 'react';
 import { Users, ShoppingCart, DollarSign, TrendingUp } from 'lucide-react';
 
 export function DashboardOverview() {
