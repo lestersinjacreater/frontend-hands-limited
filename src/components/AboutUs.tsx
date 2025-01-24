@@ -1,12 +1,5 @@
-<<<<<<< HEAD
 import  { useState } from 'react'
-//import Link from 'next/link'
-import Modal from './modal'
-import ExtensionAboutUs from './extensionaboutus'
-=======
-import React, { useState } from 'react'
 import HandsKenyaProfile from './extensionaboutus'
->>>>>>> 9ce4a696ae06923772015615e9b2836d367d9035
 
 export default function WhoWeAreSection() {
   const [isModalOpen, setIsModalOpen] = useState(false)
