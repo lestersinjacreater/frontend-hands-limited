@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Mail,  Flame, Eye, EyeOff } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 interface LoginProps {
-  onLogin: (credentials: { email: string; password: string }) => void;
+  onLogin: (credentials: { email: string; password: string }) => Promise<any>;
 }
 
 export function Login({ onLogin }: LoginProps) {
@@ -12,10 +12,23 @@ export function Login({ onLogin }: LoginProps) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin({ email, password });
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      await onLogin({ email, password });
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -48,6 +61,12 @@ export function Login({ onLogin }: LoginProps) {
               
               <h2 className="text-3xl font-bold text-gray-900 mb-8">Login</h2>
               
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg">
+                  {error}
+                </div>
+              )}
+              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
                   <div>
@@ -59,6 +78,7 @@ export function Login({ onLogin }: LoginProps) {
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-600 focus:ring-0 transition-colors text-gray-700"
                         placeholder="Email"
+                        disabled={isLoading}
                       />
                       <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                     </div>
@@ -73,6 +93,7 @@ export function Login({ onLogin }: LoginProps) {
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-600 focus:ring-0 transition-colors text-gray-700"
                         placeholder="Password"
+                        disabled={isLoading}
                       />
                       <button
                         type="button"
@@ -92,6 +113,7 @@ export function Login({ onLogin }: LoginProps) {
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      disabled={isLoading}
                     />
                     <span className="ml-2 text-gray-600">Remember me</span>
                   </label>
@@ -100,9 +122,10 @@ export function Login({ onLogin }: LoginProps) {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-800 transition-all duration-200 transform hover:scale-[1.02]"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-800 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  LOGIN
+                  {isLoading ? 'Logging in...' : 'LOGIN'}
                 </button>
               </form>
 
