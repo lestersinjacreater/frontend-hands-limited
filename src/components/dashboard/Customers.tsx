@@ -238,7 +238,7 @@ export function Customers() {
                       return distance === 0 || distance === 1 || page === 1 || page === totalPages;
                     })
                     .map((page, index, array) => (
-                      <React.Fragment key={page}>
+                      <React.Fragment key={`page-${page}`}>
                         {index > 0 && array[index - 1] !== page - 1 && (
                           <span className="px-2 text-gray-500">...</span>
                         )}
