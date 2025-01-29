@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard,
@@ -12,7 +12,8 @@ import {
   Mail,
   User,
   Quote,
-  Package
+  Package,
+  BellDot // Add this icon for Updates
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -107,6 +108,17 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
           >
             <Quote className="h-5 w-5" />
             <span>Testimonials</span>
+          </NavLink>
+          <NavLink
+            to="/dashboard/updates" // Add this link
+            className={({ isActive }) =>
+              `flex items-center space-x-3 px-4 py-3 transition-colors ${
+                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+              }`
+            }
+          >
+            <BellDot className="h-5 w-5" />
+            <span>Updates</span>
           </NavLink>
           <NavLink
             to="/dashboard/settings"
