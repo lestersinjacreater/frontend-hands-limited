@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useUpdates } from '../../hooks/useUpdates';
 import { Loader2, AlertCircle, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
