@@ -1,12 +1,12 @@
 export interface Customer {
-    id: string;
-    name: string;
+    userid: string;
+    username: string;
     email: string;
     phone?: string;
   }
   
   export interface CustomerFormData {
-    name: string;
+    username: string;
     email: string;
     phone?: string;
   }

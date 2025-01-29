@@ -36,23 +36,24 @@ export function Customers() {
   }, [fetchCustomers]);
 
   const handleEdit = (customer: Customer) => {
-    setSelectedCustomer(customer);
+    setSelectedCustomer(customer); // Set the selected customer
     setEditForm({
-      name: customer.name || '',
+      name: customer.username || '',
       email: customer.email || '',
       phone: customer.phone || '',
     });
-    setIsEditing(true);
+    setIsEditing(true); // Open the edit modal
   };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedCustomer) return;
+    if (!selectedCustomer) return; // Ensure a customer is selected
 
     try {
-      await updateCustomer(selectedCustomer.id, editForm);
-      setIsEditing(false);
-      setSelectedCustomer(null);
+      // Use the selectedCustomer.id to update the correct customer
+      await updateCustomer(selectedCustomer.userid, editForm);
+      setIsEditing(false); // Close the edit modal
+      setSelectedCustomer(null); // Clear the selected customer
     } catch (err) {
       console.error('Failed to update customer:', err);
     }
@@ -72,7 +73,7 @@ export function Customers() {
     if (!customer) return false;
     
     const searchLower = searchTerm.toLowerCase();
-    const nameMatch = customer.name?.toLowerCase().includes(searchLower) || false;
+    const nameMatch = customer.username?.toLowerCase().includes(searchLower) || false;
     const emailMatch = customer.email?.toLowerCase().includes(searchLower) || false;
     const phoneMatch = customer.phone?.includes(searchTerm) || false;
     
@@ -159,7 +160,7 @@ export function Customers() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentItems.map((customer) => (
                   <motion.tr
-                    key={customer.id}
+                    key={customer.userid}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -173,7 +174,7 @@ export function Customers() {
                           </div>
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{customer.name || 'N/A'}</div>
+                          <div className="text-sm font-medium text-gray-900">{customer.username || 'N/A'}</div>
                         </div>
                       </div>
                     </td>
@@ -191,13 +192,13 @@ export function Customers() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <button
-                        onClick={() => handleEdit(customer)}
+                        onClick={() => handleEdit(customer)} // Set the selected customer
                         className="text-blue-600 hover:text-blue-900 mr-4"
                       >
                         <Pencil className="h-5 w-5" />
                       </button>
                       <button
-                        onClick={() => handleDelete(customer.id)}
+                        onClick={() => handleDelete(customer.userid)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <Trash2 className="h-5 w-5" />
