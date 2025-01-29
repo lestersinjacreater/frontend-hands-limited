@@ -11,6 +11,8 @@ import { Settings } from './components/dashboard/Settings';
 import { Login } from './components/Login';
 import { Testimonials } from './components/dashboard/Testimonials';
 import { Products } from './components/dashboard/Products';
+import { Services } from './components/dashboard/Services';
+import { Updates } from './components/dashboard/Updates';
 
 function App() {
   const { isAuthenticated, login, logout } = useAuth();
@@ -38,9 +40,11 @@ function App() {
           <Route index element={<DashboardOverview />} />
           <Route path="customers" element={<Customers />} />
           <Route path="products" element={<Products />} />
+          <Route path="services" element={<Services />} />
           <Route path="orders" element={<Orders />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="messages" element={<Messages />} />
+          <Route path="updates" element={<Updates />} />
           <Route path="testimonials" element={<Testimonials />} />
           <Route path="settings" element={<Settings />} />
         </Route>
