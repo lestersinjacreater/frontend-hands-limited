@@ -9,6 +9,8 @@ import { Analytics } from './components/dashboard/Analytics';
 import { Messages } from './components/dashboard/Messages';
 import { Settings } from './components/dashboard/Settings';
 import { Login } from './components/Login';
+import { Testimonials } from './components/dashboard/Testimonials';
+import { Products } from './components/dashboard/Products';
 
 function App() {
   const { isAuthenticated, login, logout } = useAuth();
@@ -35,9 +37,11 @@ function App() {
         >
           <Route index element={<DashboardOverview />} />
           <Route path="customers" element={<Customers />} />
+          <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="messages" element={<Messages />} />
+          <Route path="testimonials" element={<Testimonials />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
