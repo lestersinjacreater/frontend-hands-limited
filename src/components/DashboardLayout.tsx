@@ -13,7 +13,8 @@ import {
   User,
   Quote,
   Package,
-  BellDot // Add this icon for Updates
+  BellDot, // Add this icon for Updates
+  Briefcase
 } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -75,6 +76,17 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
           >
             <Package className="h-5 w-5" />
             <span>Products</span>
+          </NavLink>
+          <NavLink
+            to="/dashboard/services"
+            className={({ isActive }) =>
+              `flex items-center space-x-3 px-4 py-3 transition-colors ${
+                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+              }`
+            }
+          >
+            <Briefcase className="h-5 w-5" />
+            <span>Services</span>
           </NavLink>
           <NavLink
             to="/dashboard/analytics"
