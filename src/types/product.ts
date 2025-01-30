@@ -9,5 +9,5 @@ export interface Product {
 export interface ProductFormData {
   title: string;
   description: string;
-  image?: File;
+  image: File | null;
 }
