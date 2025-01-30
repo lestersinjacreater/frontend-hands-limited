@@ -14,7 +14,9 @@ import {
   Quote,
   Package,
   Menu,
-  X
+  X,
+  Briefcase,
+  BellDot
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -82,6 +84,17 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
         <span>Products</span>
       </NavLink>
       <NavLink
+            to="/dashboard/services"
+            className={({ isActive }) =>
+              `flex items-center space-x-3 px-4 py-3 transition-colors ${
+                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+              }`
+            }
+          >
+            <Briefcase className="h-5 w-5" />
+            <span>Services</span>
+          </NavLink>
+      <NavLink
         to="/dashboard/analytics"
         onClick={closeMobileMenu}
         className={({ isActive }) =>
@@ -116,6 +129,17 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
       >
         <Quote className="h-5 w-5" />
         <span>Testimonials</span>
+      </NavLink>
+      <NavLink
+            to="/dashboard/updates" // Add this link
+            className={({ isActive }) =>
+              `flex items-center space-x-3 px-4 py-3 transition-colors ${
+                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+              }`
+            }
+          >
+            <BellDot className="h-5 w-5" />
+            <span>Updates</span>
       </NavLink>
       <NavLink
         to="/dashboard/settings"
