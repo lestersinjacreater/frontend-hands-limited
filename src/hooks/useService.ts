@@ -79,7 +79,7 @@ export function useServices() {
 
       const updatedService = await response.json();
       setServices(prev => prev.map(service => 
-        service.id === id ? updatedService : service
+        service.serviceid === id ? updatedService : service
       ));
       
       return updatedService;
@@ -108,7 +108,7 @@ export function useServices() {
         throw new Error('Failed to delete service');
       }
 
-      setServices(prev => prev.filter(service => service.id !== id));
+      setServices(prev => prev.filter(service => service.serviceid !== id));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       throw err;
