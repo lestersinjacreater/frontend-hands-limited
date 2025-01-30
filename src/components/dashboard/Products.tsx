@@ -77,6 +77,7 @@ export function Products() {
       setIsEditing(false);
       setSelectedProduct(null);
       setPreviewUrl(null);
+      fetchProducts();
     } catch (err) {
       console.error('Failed to update product:', err);
     }
@@ -89,6 +90,7 @@ export function Products() {
       setIsCreating(false);
       setEditForm({ title: '', description: '', image: null });
       setPreviewUrl(null);
+      fetchProducts();
     } catch (err) {
       console.error('Failed to create product:', err);
     }
@@ -98,19 +100,21 @@ export function Products() {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteProduct(id);
+      fetchProducts();
       } catch (err) {
         console.error('Failed to delete product:', err);
       }
     }
   };
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = (products || []).filter(product => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      product.title.toLowerCase().includes(searchLower) ||
-      product.description.toLowerCase().includes(searchLower)
+      product.title?.toLowerCase().includes(searchLower) ||
+      product.description?.toLowerCase().includes(searchLower)
     );
   });
+  
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
