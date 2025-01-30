@@ -35,7 +35,7 @@ export function Services() {
   const handleEdit = (service: Service) => {
     setSelectedService(service);
     setEditForm({
-      name: service.name || '',
+      name: service.description || '',
       description: service.description || '',
       price: service.price || 0,
     });
@@ -47,7 +47,7 @@ export function Services() {
     if (!selectedService) return;
 
     try {
-      await updateService(selectedService.id, editForm);
+      await updateService(selectedService.serviceid, editForm);
       setIsEditing(false);
       setSelectedService(null);
     } catch (err) {
@@ -69,7 +69,7 @@ export function Services() {
     if (!service) return false;
     
     const searchLower = searchTerm.toLowerCase();
-    const nameMatch = service.name?.toLowerCase().includes(searchLower) || false;
+    const nameMatch = service.description?.toLowerCase().includes(searchLower) || false;
     const descriptionMatch = service.description?.toLowerCase().includes(searchLower) || false;
     const priceMatch = service.price?.toString().includes(searchTerm) || false;
     
@@ -156,14 +156,14 @@ export function Services() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentItems.map((service) => (
                   <motion.tr
-                    key={service.id}
+                    key={service.serviceid}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="hover:bg-gray-50"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{service.name || 'N/A'}</div>
+                      <div className="text-sm font-medium text-gray-900">{service.description || 'N/A'}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-500">{service.description || 'N/A'}</div>
@@ -179,7 +179,7 @@ export function Services() {
                         <Pencil className="h-5 w-5" />
                       </button>
                       <button
-                        onClick={() => handleDelete(service.id)}
+                        onClick={() => handleDelete(service.serviceid)}
                         className="text-red-600 hover:text-red-900"
                       >
                         <Trash2 className="h-5 w-5" />
