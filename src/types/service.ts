@@ -1,16 +1,13 @@
 export interface Service {
-    serviceid: string;
-    title: string;
-    description: string;
-    price: number;
-    imageUrl?: string;
-  }
-  
-  export interface ServiceFormData {
-    name: string;
-    description: string;
-    price: number;
-    Image: File | null;
-  }
+  serviceid: number;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  createdAt: string;
+}
 
-  
+export interface ServiceFormData {
+  title: string;
+  description: string;
+  image: File | null;
+}
