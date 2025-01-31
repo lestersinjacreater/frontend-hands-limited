@@ -1,6 +1,10 @@
 import  { useState } from 'react'
 import HandsKenyaProfile from './extensionaboutus'
 
+
+
+
+
 export default function WhoWeAreSection() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
