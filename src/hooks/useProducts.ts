@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Product, ProductFormData } from '../types/product';
+import { uploadToCloudinary } from '../utils/cloudinary';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,13 +40,24 @@ export function useProducts() {
       setError(null);
       const token = getToken();
       
+      // First upload image to Cloudinary if it exists
+      let imageUrl = null;
+      if (data.image) {
+        imageUrl = await uploadToCloudinary(data.image);
+      }
+      
+      // Then send product data with image URL to your API
       const response = await fetch('https://rest-api-for-hands.onrender.com/products', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          imageUrl: imageUrl,
+        }),
       });
 
       if (!response.ok) {
@@ -69,13 +81,24 @@ export function useProducts() {
       setError(null);
       const token = getToken();
       
+      // First upload new image to Cloudinary if it exists
+      let imageUrl = null;
+      if (data.image) {
+        imageUrl = await uploadToCloudinary(data.image);
+      }
+      
+      // Then send updated product data with image URL to your API
       const response = await fetch(`https://rest-api-for-hands.onrender.com/products/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          ...(imageUrl && { imageUrl }),
+        }),
       });
 
       if (!response.ok) {

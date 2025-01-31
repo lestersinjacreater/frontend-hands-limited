@@ -79,7 +79,7 @@ export function useCustomers() {
 
       const updatedCustomer = await response.json();
       setCustomers(prev => prev.map(customer => 
-        customer.id === id ? updatedCustomer : customer
+        customer.userid === id ? updatedCustomer : customer
       ));
       
       return updatedCustomer;
@@ -108,7 +108,7 @@ export function useCustomers() {
         throw new Error('Failed to delete customer');
       }
 
-      setCustomers(prev => prev.filter(customer => customer.id !== id));
+      setCustomers(prev => prev.filter(customer => customer.userid !== id));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       throw err;

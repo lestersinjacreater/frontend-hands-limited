@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Service, ServiceFormData } from '../types/service';
+import { uploadToCloudinary } from '../utils/cloudinary';
 
 export function useServices() {
   const [services, setServices] = useState<Service[]>([]);
@@ -33,23 +34,37 @@ export function useServices() {
     }
   }, []);
 
-  const getService = async (id: string) => {
+  const createService = async (data: ServiceFormData) => {
     try {
       setLoading(true);
       setError(null);
       const token = getToken();
       
-      const response = await fetch(`https://rest-api-for-hands.onrender.com/services/${id}`, {
+      let imageUrl = null;
+      if (data.image) {
+        imageUrl = await uploadToCloudinary(data.image);
+      }
+      
+      const response = await fetch('https://rest-api-for-hands.onrender.com/services', {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          imageUrl,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch service');
+        throw new Error('Failed to create service');
       }
 
-      return await response.json();
+      const newService = await response.json();
+      setServices(prev => [newService, ...prev]);
+      return newService;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       throw err;
@@ -58,11 +73,16 @@ export function useServices() {
     }
   };
 
-  const updateService = async (id: string, data: Partial<ServiceFormData>) => {
+  const updateService = async (id: number, data: ServiceFormData) => {
     try {
       setLoading(true);
       setError(null);
       const token = getToken();
+      
+      let imageUrl = null;
+      if (data.image) {
+        imageUrl = await uploadToCloudinary(data.image);
+      }
       
       const response = await fetch(`https://rest-api-for-hands.onrender.com/services/${id}`, {
         method: 'PUT',
@@ -70,7 +90,11 @@ export function useServices() {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          ...(imageUrl && { imageUrl }),
+        }),
       });
 
       if (!response.ok) {
@@ -79,7 +103,7 @@ export function useServices() {
 
       const updatedService = await response.json();
       setServices(prev => prev.map(service => 
-        service.id === id ? updatedService : service
+        service.serviceid === id ? updatedService : service
       ));
       
       return updatedService;
@@ -91,7 +115,7 @@ export function useServices() {
     }
   };
 
-  const deleteService = async (id: string) => {
+  const deleteService = async (id: number) => {
     try {
       setLoading(true);
       setError(null);
@@ -108,7 +132,7 @@ export function useServices() {
         throw new Error('Failed to delete service');
       }
 
-      setServices(prev => prev.filter(service => service.id !== id));
+      setServices(prev => prev.filter(service => service.serviceid !== id));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       throw err;
@@ -122,7 +146,7 @@ export function useServices() {
     loading,
     error,
     fetchServices,
-    getService,
+    createService,
     updateService,
     deleteService,
   };

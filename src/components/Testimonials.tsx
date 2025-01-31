@@ -22,10 +22,15 @@ interface TestimonialProps {
 const Testimonial: React.FC<TestimonialProps> = ({ user, text, isActive }) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
+  // const toggleExpand = () => {
+  //   setIsExpanded(!isExpanded)
+  //   console.log(`Testimonial for ${user.?username} expanded: ${!isExpanded}`)
+  // }
+
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded)
-    console.log(`Testimonial for ${user.username} expanded: ${!isExpanded}`)
-  }
+    setIsExpanded(!isExpanded);
+    console.log(`Testimonial for ${user?.username} expanded: ${!isExpanded}`);
+  };
 
   return (
     <div className={`relative transition-all duration-500 ease-in-out ${

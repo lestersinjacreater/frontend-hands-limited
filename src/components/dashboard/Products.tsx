@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useProducts } from '../../hooks/useProducts';
-import { Product } from '../../types/product';
+
 import { 
   Pencil, 
   Trash2, 
@@ -13,9 +12,14 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Package,
-  Calendar
+  Calendar,
+  Upload,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Product } from '../../types/product';
+import { useProducts } from '../../hooks/useProducts';
+
 
 export function Products() {
   const { products, loading, error, fetchProducts, createProduct, updateProduct, deleteProduct } = useProducts();
@@ -28,7 +32,9 @@ export function Products() {
   const [editForm, setEditForm] = useState({
     title: '',
     description: '',
+    image: null as File | null,
   });
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProducts();
@@ -39,8 +45,27 @@ export function Products() {
     setEditForm({
       title: product.title,
       description: product.description,
+      image: null,
     });
+    setPreviewUrl(product.imageUrl || null);
     setIsEditing(true);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setEditForm(prev => ({ ...prev, image: file }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setEditForm(prev => ({ ...prev, image: null }));
+    setPreviewUrl(null);
   };
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -51,6 +76,8 @@ export function Products() {
       await updateProduct(selectedProduct.productid, editForm);
       setIsEditing(false);
       setSelectedProduct(null);
+      setPreviewUrl(null);
+      fetchProducts();
     } catch (err) {
       console.error('Failed to update product:', err);
     }
@@ -61,7 +88,9 @@ export function Products() {
     try {
       await createProduct(editForm);
       setIsCreating(false);
-      setEditForm({ title: '', description: '' });
+      setEditForm({ title: '', description: '', image: null });
+      setPreviewUrl(null);
+      fetchProducts();
     } catch (err) {
       console.error('Failed to create product:', err);
     }
@@ -71,19 +100,21 @@ export function Products() {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await deleteProduct(id);
+      fetchProducts();
       } catch (err) {
         console.error('Failed to delete product:', err);
       }
     }
   };
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = (products || []).filter(product => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      product.title.toLowerCase().includes(searchLower) ||
-      product.description.toLowerCase().includes(searchLower)
+      product.title?.toLowerCase().includes(searchLower) ||
+      product.description?.toLowerCase().includes(searchLower)
     );
   });
+  
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -151,11 +182,22 @@ export function Products() {
               exit={{ opacity: 0, y: -20 }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
+              {product.imageUrl ? (
+                <div className="aspect-w-16 aspect-h-9">
+                  <img
+                    src={product.imageUrl}
+                    alt={product.title}
+                    className="object-cover w-full h-48"
+                  />
+                </div>
+              ) : (
+                <div className="bg-gray-100 h-48 flex items-center justify-center">
+                  <Package className="h-12 w-12 text-gray-400" />
+                </div>
+              )}
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Package className="h-6 w-6 text-blue-600" />
-                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">{product.title}</h3>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleEdit(product)}
@@ -171,7 +213,6 @@ export function Products() {
                     </button>
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.title}</h3>
                 <p className="text-gray-600 mb-4">{product.description}</p>
                 <div className="flex items-center text-sm text-gray-500">
                   <Calendar className="h-4 w-4 mr-1" />
@@ -287,6 +328,53 @@ export function Products() {
                     placeholder="Enter product description"
                   />
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Product Image
+                  </label>
+                  {previewUrl ? (
+                    <div className="relative">
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="absolute top-2 right-2 p-1 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                      <div className="space-y-1 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600">
+                          <label
+                            htmlFor="image-upload"
+                            className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="image-upload"
+                              name="image-upload"
+                              type="file"
+                              accept="image/*"
+                              className="sr-only"
+                              onChange={handleImageChange}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          PNG, JPG, GIF up to 10MB
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <div className="flex justify-end space-x-3 mt-6">
                   <button
                     type="button"
@@ -294,7 +382,8 @@ export function Products() {
                       setIsEditing(false);
                       setIsCreating(false);
                       setSelectedProduct(null);
-                      setEditForm({ title: '', description: '' });
+                      setEditForm({ title: '', description: '', image: null });
+                      setPreviewUrl(null);
                     }}
                     className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                   >

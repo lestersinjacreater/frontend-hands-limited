@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard,
@@ -13,9 +13,12 @@ import {
   User,
   Quote,
   Package,
-  BellDot, // Add this icon for Updates
-  Briefcase
+  Menu,
+  X,
+  Briefcase,
+  BellDot
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface DashboardLayoutProps {
   onLogout: () => void;
@@ -23,61 +26,64 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
   const [showProfile, setShowProfile] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  return (
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-blue-600 text-white flex flex-col">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold">HandsLTD</h1>
-        </div>
-        <nav className="flex-1">
-          <NavLink
-            to="/dashboard"
-            end
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <LayoutDashboard className="h-5 w-5" />
-            <span>Overview</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/customers"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <Users className="h-5 w-5" />
-            <span>Customers</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/orders"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <ShoppingCart className="h-5 w-5" />
-            <span>Orders</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/products"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <Package className="h-5 w-5" />
-            <span>Products</span>
-          </NavLink>
-          <NavLink
+  const closeMobileMenu = () => {
+    setShowMobileMenu(false);
+  };
+
+  const NavLinks = () => (
+    <>
+      <NavLink
+        to="/dashboard"
+        end
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <LayoutDashboard className="h-5 w-5" />
+        <span>Overview</span>
+      </NavLink>
+      <NavLink
+        to="/dashboard/customers"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <Users className="h-5 w-5" />
+        <span>Customers</span>
+      </NavLink>
+      <NavLink
+        to="/dashboard/orders"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <ShoppingCart className="h-5 w-5" />
+        <span>Orders</span>
+      </NavLink>
+      <NavLink
+        to="/dashboard/products"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <Package className="h-5 w-5" />
+        <span>Products</span>
+      </NavLink>
+      <NavLink
             to="/dashboard/services"
             className={({ isActive }) =>
               `flex items-center space-x-3 px-4 py-3 transition-colors ${
@@ -88,40 +94,43 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
             <Briefcase className="h-5 w-5" />
             <span>Services</span>
           </NavLink>
-          <NavLink
-            to="/dashboard/analytics"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <BarChart3 className="h-5 w-5" />
-            <span>Analytics</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/messages"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <Mail className="h-5 w-5" />
-            <span>Messages</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/testimonials"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <Quote className="h-5 w-5" />
-            <span>Testimonials</span>
-          </NavLink>
-          <NavLink
+      <NavLink
+        to="/dashboard/analytics"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <BarChart3 className="h-5 w-5" />
+        <span>Analytics</span>
+      </NavLink>
+      <NavLink
+        to="/dashboard/messages"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <Mail className="h-5 w-5" />
+        <span>Messages</span>
+      </NavLink>
+      <NavLink
+        to="/dashboard/testimonials"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <Quote className="h-5 w-5" />
+        <span>Testimonials</span>
+      </NavLink>
+      <NavLink
             to="/dashboard/updates" // Add this link
             className={({ isActive }) =>
               `flex items-center space-x-3 px-4 py-3 transition-colors ${
@@ -131,18 +140,31 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
           >
             <BellDot className="h-5 w-5" />
             <span>Updates</span>
-          </NavLink>
-          <NavLink
-            to="/dashboard/settings"
-            className={({ isActive }) =>
-              `flex items-center space-x-3 px-4 py-3 transition-colors ${
-                isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
-              }`
-            }
-          >
-            <Settings className="h-5 w-5" />
-            <span>Settings</span>
-          </NavLink>
+      </NavLink>
+      <NavLink
+        to="/dashboard/settings"
+        onClick={closeMobileMenu}
+        className={({ isActive }) =>
+          `flex items-center space-x-3 px-4 py-3 transition-colors ${
+            isActive ? 'bg-blue-700' : 'hover:bg-blue-700'
+          }`
+        }
+      >
+        <Settings className="h-5 w-5" />
+        <span>Settings</span>
+      </NavLink>
+    </>
+  );
+
+  return (
+    <div className="min-h-screen flex">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex w-64 bg-blue-600 text-white flex-col">
+        <div className="p-4">
+          <h1 className="text-2xl font-bold">HandsLTD</h1>
+        </div>
+        <nav className="flex-1">
+          <NavLinks />
         </nav>
         {/* Bottom Logout Button */}
         <div className="p-4 border-t border-blue-500">
@@ -156,12 +178,64 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
         </div>
       </aside>
 
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {showMobileMenu && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+              onClick={closeMobileMenu}
+            />
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="fixed inset-y-0 left-0 w-64 bg-blue-600 text-white flex flex-col z-50 md:hidden"
+            >
+              <div className="p-4 flex justify-between items-center">
+                <h1 className="text-2xl font-bold">HandsLTD</h1>
+                <button
+                  onClick={closeMobileMenu}
+                  className="p-2 hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              <nav className="flex-1">
+                <NavLinks />
+              </nav>
+              <div className="p-4 border-t border-blue-500">
+                <button
+                  onClick={onLogout}
+                  className="flex items-center space-x-3 w-full px-4 py-3 text-white hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  <LogOut className="h-5 w-5" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Navigation */}
         <header className="bg-white shadow-sm">
-          <div className="flex justify-between items-center px-8 py-4">
-            <div className="relative flex-1 max-w-xl">
+          <div className="flex justify-between items-center px-4 md:px-8 py-4">
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setShowMobileMenu(true)}
+              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+
+            <div className="relative flex-1 max-w-xl mx-4">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
@@ -222,7 +296,7 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-8">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-8">
           <Outlet />
         </main>
       </div>
