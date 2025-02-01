@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useServices } from '../hooks/useService';
 
 interface ServiceCardProps {
