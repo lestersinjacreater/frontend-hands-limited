@@ -3,7 +3,7 @@ import { Outlet, NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard,
   Users,
-  BarChart3,
+  //BarChart3,
   Settings,
   Bell,
   Search,
@@ -94,7 +94,7 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
             <Briefcase className="h-5 w-5" />
             <span>Services</span>
           </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/dashboard/analytics"
         onClick={closeMobileMenu}
         className={({ isActive }) =>
@@ -105,7 +105,7 @@ export function DashboardLayout({ onLogout }: DashboardLayoutProps) {
       >
         <BarChart3 className="h-5 w-5" />
         <span>Analytics</span>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to="/dashboard/messages"
         onClick={closeMobileMenu}

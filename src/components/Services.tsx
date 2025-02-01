@@ -1,14 +1,17 @@
+import React, { useEffect } from 'react';
+import { useServices } from '../hooks/useService';
+
 interface ServiceCardProps {
-  title: string
-  description: string
-  image: string
+  title: string;
+  description: string;
+  image: string;
 }
 
 function ServiceCard({ title, description, image }: ServiceCardProps) {
   return (
     <div className="relative overflow-hidden rounded-3xl group h-[450px] flex flex-col shadow-lg">
       {/* Background Image */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
         style={{ backgroundImage: `url(${image})` }}
       />
@@ -19,7 +22,7 @@ function ServiceCard({ title, description, image }: ServiceCardProps) {
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full p-4 md:p-8">
         {/* Title at the top */}
-        <h3 className="text-orange-400 text-2xl md:text-3xl font-bold leading-tight mb-2 md:mb-4">
+        <h3 className="text-amber-500 text-2xl md:text-3xl font-bold leading-tight mb-2 md:mb-4">
           {title}
         </h3>
 
@@ -44,32 +47,15 @@ function ServiceCard({ title, description, image }: ServiceCardProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default function Services() {
-  const services = [
-    {
-      title: "Online Support",
-      description: "Provide comprehensive online assistance to clients, ensuring timely responses to inquiries and support for all services.",
-      image: "https://images.hiverhq.com/blog/wp-content/uploads/2023/06/tr:pr-true/A-Complete-Guide-to-Online-Customer-Service-in-2023.png"
-    },
-    {
-      title: "Documents Download",
-      description: "Facilitate easy access to important documents and resources through our user-friendly download portal, streamlining information retrieval.",
-      image: "https://thumbs.dreamstime.com/b/pdf-document-download-icon-eyeball-blue-round-button-isolated-143284744.jpg"
-    },
-    {
-      title: "Event Organization",
-      description: "Expertly manage and coordinate events, from planning to execution, ensuring memorable experiences tailored to client needs.",
-      image: "https://eventscase.com/blog/wp-content/uploads/2023/12/the-essential-role-of-an-event-organiser-understanding-the-profession.jpg"
-    },
-    {
-      title: "Transport & Logistics",
-      description: "Ensure timely and efficient delivery of goods, optimizing supply chain solutions for your business needs.",
-      image: "https://philburn.com/wp-content/uploads/2017/03/Philburn_16.jpg"
-    }
-  ]
+  const { services, loading, error, fetchServices } = useServices();
+
+  useEffect(() => {
+    fetchServices();
+  }, [fetchServices]);
 
   return (
     <section className="relative">
@@ -82,16 +68,24 @@ export default function Services() {
           <h2 className="text-blue-300 text-4xl md:text-5xl font-bold mb-8 md:mb-12">
             SERVICES
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service) => (
-              <ServiceCard
-                key={service.title}
-                {...service}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <p className="text-white">Loading services...</p>
+          ) : error ? (
+            <p className="text-red-500">Error: {error}</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.serviceid}
+                  title={service.title}
+                  description={service.description}
+                  image={service.imageUrl || 'default-image-url.jpg'}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
-  )
+  );
 }

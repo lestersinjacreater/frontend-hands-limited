@@ -5,7 +5,7 @@ import { DashboardLayout } from './components/DashboardLayout';
 import { DashboardOverview } from './components/dashboard/DashboardOverview';
 import { Customers } from './components/dashboard/Customers';
 import { Orders } from './components/dashboard/Orders';
-import { Analytics } from './components/dashboard/Analytics';
+//import { Analytics } from './components/dashboard/Analytics';
 import { Messages } from './components/dashboard/Messages';
 import { Settings } from './components/dashboard/Settings';
 import { Login } from './components/Login';
@@ -42,7 +42,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="services" element={<Services />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="analytics" element={<Analytics />} />
+          {/* <Route path="analytics" element={<Analytics />} /> */}
           <Route path="messages" element={<Messages />} />
           <Route path="updates" element={<Updates />} />
           <Route path="testimonials" element={<Testimonials />} />
